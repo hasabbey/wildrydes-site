@@ -170,4 +170,22 @@ var WildRydes = window.WildRydes || {};
             }
         );
     }
+   <script>
+function toggleForm() {
+  const regForm = document.getElementById('registrationForm');
+  const loginForm = document.getElementById('loginForm');
+  const toggleText = document.getElementById('toggleLink').querySelector('a');
+
+  if (regForm.style.display === 'none') {
+    regForm.style.display = 'block';
+    loginForm.style.display = 'none';
+    toggleText.textContent = "Already have an account? Login here";
+  } else {
+    regForm.style.display = 'none';
+    loginForm.style.display = 'block';
+    toggleText.textContent = "Don't have an account? Register here";
+  }
+}
+</script>
+ 
 }(jQuery));
