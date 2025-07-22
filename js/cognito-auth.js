@@ -187,5 +187,24 @@ function toggleForm() {
   }
 }
 </script>
+ document.addEventListener('DOMContentLoaded', () => {
+  const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+  const cognitoUser = userPool.getCurrentUser();
+
+  if (cognitoUser != null) {
+    cognitoUser.getSession((err, session) => {
+      if (session && session.isValid()) {
+        // Already logged in
+        window.location.href = "home.html"; // Redirect to your home/dashboard
+      } else {
+        // Not logged in, show login form
+        toggleForm(); // Show login
+      }
+    });
+  } else {
+    toggleForm(); // Show login
+  }
+});
+
  
 }(jQuery));
