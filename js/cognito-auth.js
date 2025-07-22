@@ -205,6 +205,40 @@ function toggleForm() {
     toggleForm(); // Show login
   }
 });
+<script>
+document.getElementById("loginForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const email = document.getElementById("emailInputLogin").value;
+    const password = document.getElementById("passwordInputLogin").value;
+
+    const authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
+        Username: email,
+        Password: password,
+    });
+
+    const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    const userData = {
+        Username: email,
+        Pool: userPool
+    };
+
+    const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+
+    cognitoUser.authenticateUser(authenticationDetails, {
+        onSuccess: function (result) {
+            // Login successful, redirect to homepage
+            console.log("Login success");
+            window.location.href = "home.html"; // Change this to your dashboard/home page
+        },
+
+        onFailure: function (err) {
+            alert("Login failed: " + err.message || JSON.stringify(err));
+        }
+    });
+});
+</script>
+
 
  
 }(jQuery));
